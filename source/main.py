@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 import re
-from priority_queue import PriorityQueue
 import fileinput
 import sys
-import heuristics
+from heuristics import *
+from a_star import a_star_impl
 
 def parse():
     dict = {}
@@ -17,7 +17,7 @@ def parse():
     except:
         exit("Parsing Error int" + puzzles[0])
 
-    puzzles = puzzles[1:]
+    puzzles = [ int(puzzle) for puzzle in puzzles[1:]]
     without_hash = without_hash.splitlines()[1:]
 
     for line in without_hash:
@@ -25,9 +25,13 @@ def parse():
         if (line_length is not puzzle_size):
             exit("Parsing Error")
     print(puzzles)
+    return puzzles, puzzle_size
 
 def main():
-    parse()
+    grid, size = parse()
+    goal = [i + 1 for i in range(size * size)]
+    goal[-1] = 0
+    a_star_impl(grid, goal, manhattan_distance_heuristic)
 
 if __name__ == '__main__':
     main()
