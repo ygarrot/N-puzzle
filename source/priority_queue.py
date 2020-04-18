@@ -29,11 +29,11 @@ def LEFT(i):
 def RIGHT(i):
     return i - 1
 
-def UP(i):
-    return i + 3
+def UP(i, puzzle_size):
+    return i + puzzle_size
 
-def DOWN(i):
-    return i - 3
+def DOWN(i, puzzle_size):
+    return i - puzzle_size
 
 def swap_left(node, lst, index):
     tile_swap_2_index(node, lst, index, LEFT(index))
@@ -42,10 +42,10 @@ def swap_right(node, lst, index):
     tile_swap_2_index(node, lst, index, RIGHT(index))
 
 def swap_down(node, lst, index):
-    tile_swap_2_index(node, lst, index, UP(index))
+    tile_swap_2_index(node, lst, index, UP(index, puzzle_size))
 
 def swap_up(node, lst, index):
-    tile_swap_2_index(node, lst, index, DOWN(index))
+    tile_swap_2_index(node, lst, index, DOWN(index, puzzle_size))
 
 
 class Node(object):
