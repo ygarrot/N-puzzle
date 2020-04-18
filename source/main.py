@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+from priority_queue import PriorityQueue
+import fileinput
 
 def parse():
 	with open("../test.txt") as f:
