@@ -1,6 +1,6 @@
 
 #test This puzzle is solvable
-3
+3#toto
 8 7 2
 1 0 5
 3 6 4

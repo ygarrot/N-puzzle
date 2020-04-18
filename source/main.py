@@ -8,14 +8,13 @@ def parse():
     dict = {}
     with open(sys.argv[1]) as f:
         content = f.read()
-    without_hash = re.sub('#.*', '', content)
-    without_hash = re.sub('\s\n', '', without_hash)
-
+    without_hash = re.sub('#.*', '', content).strip()
     puzzles = without_hash.split()
+    print(without_hash)
     try:
         puzzle_size = int(puzzles[0])
     except:
-        exit("Parsing Error " + puzzles[0])
+        exit("Parsing Error int" + puzzles[0])
 
     puzzles = puzzles[1:]
     without_hash = without_hash.splitlines()[1:]
