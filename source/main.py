@@ -3,6 +3,7 @@ import re
 from priority_queue import PriorityQueue
 import fileinput
 import sys
+import heuristics
 
 def parse():
     dict = {}
