@@ -1,22 +1,33 @@
 #!/usr/bin/env python3
+import re
 from priority_queue import PriorityQueue
 import fileinput
+import sys
 
 def parse():
-	dict = {}
-	with open("../test.txt") as f:
-		content = f.read().splitlines()
-	for j, line in enumerate(content):
-		line = line.split()
-		for i, word in enumerate(line):
-			if "#" in word:
-				del line[i + 1:]
-				word = word[word.index('#') + 1:]
-			dict[j * 3 + i] = word;
-	print(dict)
+    dict = {}
+    with open(sys.argv[1]) as f:
+        content = f.read()
+    without_hash = re.sub('#.*', '', content)
+    without_hash = re.sub('\s\n', '', without_hash)
+
+    puzzles = without_hash.split()
+    try:
+        puzzle_size = int(puzzles[0])
+    except:
+        exit("Parsing Error " + puzzles[0])
+
+    puzzles = puzzles[1:]
+    without_hash = without_hash.splitlines()[1:]
+
+    for line in without_hash:
+        line_length = len(line.split())
+        if (line_length is not puzzle_size):
+            exit("Parsing Error")
+    print(puzzles)
 
 def main():
-	parse()
+    parse()
 
 if __name__ == '__main__':
     main()
