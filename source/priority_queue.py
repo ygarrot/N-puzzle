@@ -47,6 +47,12 @@ def swap_down(lst, index):
 def swap_up(lst, index):
     return tile_swap_2_index(lst, index, DOWN(index, len(lst)))
 
+def chunks(l, n):
+    return [l[i:i+n] for i in range(0, len(l), n)]
+
+from pandas import *
+from math import sqrt
+import numpy as np
 class Node(object):
     def __init__(self, h = 0, g = 0, f = 0, empty_case_index = 0, grid = []):
         self.h = h
@@ -60,8 +66,10 @@ class Node(object):
         self.parents = []
         self.grid = grid
 
+
     def __str__(self):
-        return str(self.grid) + ' '.join([str(i) for i in self.parents])
+        lst = np.matrix(chunks(self.grid, int(sqrt(len(self.grid)))))
+        return  str(lst) + ' '.join([str(i) for i in self.parents])
 
     def set_parent(self):
         i = self.empty_case_index
@@ -76,7 +84,7 @@ class Node(object):
             self.down = swap_down(self.grid, i)
         self.parents = [x for x in [self.right, self.left, self.up, self.down] if x is not None]
         for node in self.parents:
-            print(node.grid)
+            print(node)
 
 
 #maybe set in in constructor later
@@ -94,9 +102,9 @@ class PriorityQueue(object):
         for i, elem in enumerate(self.queue):
             if elem.h > node.h:
                 self.queue.insert(i, node)
-                print(''.join([str(x) for x in self.queue]))
+                # print('\n'.join([str(x) for x in self.queue]))
                 return
-        print(''.join([str(x) for x in self.queue]))
+        # print('\n'.join([str(x) for x in self.queue]))
         self.queue.append(node)
 
     def clean(self):
