@@ -59,7 +59,7 @@ void main()
     for (int i = 0; i < n * n; i++)
         if (grid[i] == 0)
         {
-            grid[i] = n * n;
+            grid[i] = 0;
             break;
         }
 
@@ -76,7 +76,7 @@ void main()
     	col.gb = smoothstep(1., float(n), abs(mod(id + time, float(n)) - float(n) / 2.) + 1.);
         float d = length(guv - 0.5);
         float dist = length(id) * 10.;
-        float r = mix(.05, .5, /*(sin(time) * 0.2 + 1.2) **/ float(grid[int(float(n) - id.y) * n + int(id.x - 1.)]) / float(n * n));
+        float r = mix(.0001, .5, /*(sin(time) * 0.2 + 1.2) **/ float(grid[int(float(n) - id.y) * n + int(id.x - 1.)]) / float(n * n));
         m += smoothstep(r, r * .99, d);
     }
     col += vec3(m);
