@@ -31,6 +31,10 @@ def main():
     grid, size = parse()
     goal = [i + 1 for i in range(size * size)]
     goal[-1] = 0
+    #check if input puzzle go from 0 to N - 1
+    for tile in goal:
+        if tile not in grid:
+            exit("Parsing Error")
     a_star_impl(grid, goal, manhattan_distance_heuristic)
 
 if __name__ == '__main__':
