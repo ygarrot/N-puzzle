@@ -30,9 +30,9 @@ def parse():
 
 def main():
     grid, size = parse()
-    if not solvable(grid):
-        print("Error: This N-puzzle isn't solvable.")
-        return
+    #if not solvable(grid):
+    #    print("Error: This N-puzzle isn't solvable.")
+    #    return
     goal = [i + 1 for i in range(size * size)]
     goal[-1] = 0
     #check if input puzzle go from 0 to N - 1
