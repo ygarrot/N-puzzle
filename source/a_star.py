@@ -32,9 +32,9 @@ def a_star_impl(grid, goal, heuristic_ptr):
             else:
                 actual_node = node
 
-            if node.g < actual_node.g:
-                actual_node.g = node.g
-                actual_node.f = node.f
-                actual_node.parents = node.parents
+                if node.g < actual_node.g:
+                    actual_node.g = node.g
+                    actual_node.f = node.f
+                    actual_node.parents = node.parents
 
     exit("unsolvable")

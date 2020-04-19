@@ -36,16 +36,16 @@ def DOWN(i, puzzle_size):
     return i - puzzle_size
 
 def swap_left(lst, index):
-    tile_swap_2_index(lst, index, LEFT(index))
+    return tile_swap_2_index(lst, index, LEFT(index))
 
 def swap_right(lst, index):
-    tile_swap_2_index(lst, index, RIGHT(index))
+    return tile_swap_2_index(lst, index, RIGHT(index))
 
 def swap_down(lst, index):
-    tile_swap_2_index(lst, index, UP(index, len(lst)))
+    return tile_swap_2_index(lst, index, UP(index, len(lst)))
 
 def swap_up(lst, index):
-    tile_swap_2_index(lst, index, DOWN(index, len(lst)))
+    return tile_swap_2_index(lst, index, DOWN(index, len(lst)))
 
 class Node(object):
     def __init__(self, h = 0, g = 0, f = 0, empty_case_index = 0, grid = []):
@@ -72,6 +72,8 @@ class Node(object):
         if is_valid_vertical_move(DOWN(i, puzzle_size), puzzle_size):
             self.down = swap_down(self.grid, i)
         self.parents = [x for x in [self.right, self.left, self.up, self.down] if x is not None]
+        for node in self.parents:
+            print(node.grid)
 
 
 #maybe set in in constructor later
@@ -87,12 +89,12 @@ class PriorityQueue(object):
             self.queue.append(node)
             return
         for i, elem in enumerate(self.queue):
-            if elem.n > node.n:
+            if elem.h > node.h:
                 self.queue.insert(i, node)
-                print("higher h: queue:{}".format(self.queue))
+                print("higher h: queue:{}".format(self.queue.grid))
                 return
         self.queue.append(node)
-        print("lower h: queue:{}".format(self.queue))
+        print("lower h: queue:{}".format(self.queue.))
 
     def clean(self):
         for node in self.queue:
