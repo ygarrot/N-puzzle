@@ -60,6 +60,9 @@ class Node(object):
         self.parents = []
         self.grid = grid
 
+    def __str__(self):
+        return str(self.grid) + ' '.join([str(i) for i in self.parents])
+
     def set_parent(self):
         i = self.empty_case_index
         puzzle_size = len(self.grid)
@@ -91,10 +94,10 @@ class PriorityQueue(object):
         for i, elem in enumerate(self.queue):
             if elem.h > node.h:
                 self.queue.insert(i, node)
-                print("higher h: queue:{}".format(self.queue.grid))
+                print(''.join([str(x) for x in self.queue]))
                 return
+        print(''.join([str(x) for x in self.queue]))
         self.queue.append(node)
-        print("lower h: queue:{}".format(self.queue.))
 
     def clean(self):
         for node in self.queue:
