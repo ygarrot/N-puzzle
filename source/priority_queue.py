@@ -76,8 +76,8 @@ class Node(object):
         self.down = swap_down(self.grid, i)
 
         self.parents = [x for x in [self.right, self.left, self.up, self.down] if x is not None]
-        for node in self.parents:
-            print(node)
+        # for node in self.parents:
+        #     print(node)
 
 
 #maybe set in in constructor later
@@ -94,9 +94,11 @@ class PriorityQueue(object):
             self.queue.append(node)
             return
         for i, elem in enumerate(self.queue):
+            if (elem.h is 0):
+                print(elem.grid)
+                exit()
             if elem.h > node.h:
                 self.queue.insert(i, node)
-                # print('\n'.join([str(x) for x in self.queue]))
                 return
         # print('\n'.join([str(x) for x in self.queue]))
         self.queue.append(node)

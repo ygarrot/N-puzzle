@@ -1,6 +1,6 @@
-
-#test This puzzle is solvable
-3#toto
-8 7 2
-1 0 5
-3 6 4
+# This puzzle is unsolvable
+4
+ 2  1  4  5
+12 13  3  6
+11 15 14  0
+10  9  8  7

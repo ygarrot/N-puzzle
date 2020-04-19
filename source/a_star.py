@@ -11,7 +11,7 @@ def a_star_impl(grid, goal, heuristic_ptr):
     closed_set = PriorityQueue()
 
     while open_set.queue:
-        process = open_set.queue[-1]
+        process = open_set.queue[0]
 
         if process is goal:
             print("solved")
@@ -21,17 +21,17 @@ def a_star_impl(grid, goal, heuristic_ptr):
         closed_set.insert(process)
 
         for node in process.parents:
-
-            if node in closed_set.queue:
+            if node.grid in [x.grid for x in closed_set.queue]:
                 continue
 
-            if node not in open_set.queue:
+            if node.grid not in [x.grid for x in open_set.queue]:
                 open_set.insert(node)
             else:
                 actual_node = node
 
-                if node.g < actual_node.g:
+                if node.h < actual_node.h:
                     actual_node.g = node.g
+                    actual_node.h = node.h
                     actual_node.f = node.f
                     actual_node.parents = node.parents
 
