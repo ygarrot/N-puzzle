@@ -14,12 +14,11 @@ def a_star_impl(grid, goal, heuristic_ptr):
     while open_set.queue:
         process = open_set.queue[0]
         # print(process.h)
-        print(process.grid)
+        #print(process.grid)
 
         # print(len(open_set.queue))
-        if process is goal:
-            print("solved")
-            #return path(process)
+        if process.grid is goal:
+            exit("solved")
 
         open_set.queue.remove(process)
         closed_set.insert(process)
