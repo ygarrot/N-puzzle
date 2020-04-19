@@ -26,7 +26,7 @@ def is_valid_horizontal_move(index, new_index, puzzle_size):
     return True
 
 def tile_swap_2_index(new_lst, index, new_index, valid_move_fn):
-    print(index, new_index, index-new_index, "not valid" if not valid_move_fn(index, new_index, len(new_lst)) else "valid")
+    # print(index, new_index, index-new_index, "not valid" if not valid_move_fn(index, new_index, len(new_lst)) else "valid")
     if not valid_move_fn(index, new_index, len(new_lst)):
         return None
 
