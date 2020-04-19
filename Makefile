@@ -1,7 +1,7 @@
 all: gen
 
 run:
-	./source/main.py 
+	./source/main.py
 
 gen:
 	./res_npuzzle-gen.py -i 12 3 > test/test.txt
