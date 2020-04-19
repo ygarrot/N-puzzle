@@ -4,44 +4,35 @@
 from priority_queue import *
 
 def a_star_impl(grid, goal, heuristic_ptr):
+    heuristic_ptr= manhattan_distance_heuristic
     start = Node(h = heuristic_ptr(grid), empty_case_index = grid.index(0), grid = grid)
-    open_set = PriorityQueue()
-    start.set_parent()
-    open_set.insert(start)
+    open_set = []
+    closed_set = []
+    open_set.append(start)
 
-    closed_set = PriorityQueue()
-
-    while open_set.queue:
-        process = open_set.queue[0]
-        # print(process.h)
-        #print(process.grid)
-
-        # print(len(open_set.queue))
-        if process.grid is goal:
+    while open_set:
+        process = min(open_set, key=lambda x:x.h + x.g)
+        print()
+        print()
+        print(' '.join([str(x.h + x.g) for x in open_set]))
+        print('choosen: {}'.format(process.h + process.g))
+        if process.h is 0 or process.grid is goal:
+            print(process.grid)
             exit("solved")
 
-        open_set.queue.remove(process)
-        closed_set.insert(process)
-
+        open_set.remove(process)
+        closed_set.append(process)
+        process.set_parent()
         for node in process.parents:
-            in_close = node.grid in [x.grid for x in closed_set.queue]
-            in_open = node.grid in [x.grid for x in open_set.queue]
-            # print(in_close)
-            # print(in_open)
-
+            in_close = node in closed_set
+            in_open = node in open_set
             if in_close:
                 continue
-
+            new_g = process.g + 1
             if not in_open:
-                open_set.insert(node)
-                node.set_parent()
+                node.g = new_g
+                open_set.append(node)
             else:
-                actual_node = node
-
-                if node.g < actual_node.g:
-                    actual_node.g = node.g
-                    actual_node.h = node.h
-                    actual_node.f = node.f
-                    actual_node.parents = node.parents
-
-    exit("unsolvable")
+                if (node.g > new_g):
+                    node.g = new_g
+    raise ValueError('No Path Found')
