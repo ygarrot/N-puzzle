@@ -11,11 +11,11 @@ def a_star_impl(grid, goal, heuristic_ptr):
     open_set.append(start)
 
     while open_set:
-        process = min(open_set, key=lambda x:x.h + x.g)
         print()
         print()
         print(' '.join([str(x.h + x.g) for x in open_set]))
-        print('choosen: {}'.format(process.h + process.g))
+        process = min(open_set, key=lambda x:x.h + x.g)
+        print('choosen: {}'.format(process.h + process.h))
         if process.h is 0 or process.grid is goal:
             print(process.grid)
             exit("solved")
@@ -24,6 +24,9 @@ def a_star_impl(grid, goal, heuristic_ptr):
         closed_set.append(process)
         process.set_parent()
         for node in process.parents:
+            # in_close = node.grid in [x.grid for x in closed_set]
+            # in_open = node.grid in [x.grid for x in open_set]
+
             in_close = node in closed_set
             in_open = node in open_set
             if in_close:
