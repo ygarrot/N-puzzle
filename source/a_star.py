@@ -5,8 +5,6 @@ from priority_queue import *
 
 def a_star_impl(grid, goal, heuristic_ptr):
     start = Node(h = heuristic_ptr(grid), empty_case_index = grid.index(0), grid = grid)
-    start.set_parent()
-
     open_set = PriorityQueue()
     open_set.insert(start)
 
