@@ -3,6 +3,7 @@ import re
 import fileinput
 import sys
 from heuristics import *
+from solvable import *
 from a_star import a_star_impl
 
 def parse():
@@ -29,6 +30,9 @@ def parse():
 
 def main():
     grid, size = parse()
+    if not solvable(grid):
+        print("Error: This N-puzzle isn't solvable.")
+        return
     goal = [i + 1 for i in range(size * size)]
     goal[-1] = 0
     #check if input puzzle go from 0 to N - 1
