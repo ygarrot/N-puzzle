@@ -13,7 +13,7 @@ def is_valid_horizontal_move(i, puzzle_size):
 def is_valid_vertical_move(i, puzzle_size):
     return is_valid_move(i / puzzle_size, puzzle_size) 
 
-def tile_swap_2_index(node, new_lst, index, new_index):
+def tile_swap_2_index(new_lst, index, new_index):
     lst = copy.deepcopy(new_lst)
     #swap
     lst[index], lst[new_index] = lst[new_index], lst[index]
@@ -35,18 +35,17 @@ def UP(i, puzzle_size):
 def DOWN(i, puzzle_size):
     return i - puzzle_size
 
-def swap_left(node, lst, index):
-    tile_swap_2_index(node, lst, index, LEFT(index))
+def swap_left(lst, index):
+    tile_swap_2_index(lst, index, LEFT(index))
 
-def swap_right(node, lst, index):
-    tile_swap_2_index(node, lst, index, RIGHT(index))
+def swap_right(lst, index):
+    tile_swap_2_index(lst, index, RIGHT(index))
 
-def swap_down(node, lst, index):
-    tile_swap_2_index(node, lst, index, UP(index, puzzle_size))
+def swap_down(lst, index):
+    tile_swap_2_index(lst, index, UP(index, len(lst)))
 
-def swap_up(node, lst, index):
-    tile_swap_2_index(node, lst, index, DOWN(index, puzzle_size))
-
+def swap_up(lst, index):
+    tile_swap_2_index(lst, index, DOWN(index, len(lst)))
 
 class Node(object):
     def __init__(self, h = 0, g = 0, f = 0, empty_case_index = 0, grid = []):
@@ -65,13 +64,13 @@ class Node(object):
         i = self.empty_case_index
         puzzle_size = len(self.grid)
         if is_valid_vertical_move(LEFT(i), puzzle_size):
-            self.left = swap_left(self.left, self.grid, i)
+            self.left = swap_left(self.grid, i)
         if is_valid_vertical_move(RIGHT(i), puzzle_size):
-            self.right = swap_right(self.left, self.grid, i)
-        if is_valid_vertical_move(UP(i), puzzle_size):
-            self.up = swap_up(self.up, self.grid, i)
-        if is_valid_vertical_move(DOWN(i), puzzle_size):
-            self.down = swap_down(self.down, self.grid, i)
+            self.right = swap_right(self.grid, i)
+        if is_valid_vertical_move(UP(i, puzzle_size), puzzle_size):
+            self.up = swap_up(self.grid, i)
+        if is_valid_vertical_move(DOWN(i, puzzle_size), puzzle_size):
+            self.down = swap_down(self.grid, i)
         self.parents = [x for x in [self.right, self.left, self.up, self.down] if x is not None]
 
 
