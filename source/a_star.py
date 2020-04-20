@@ -3,13 +3,17 @@
 #f score is the sum of the cost to reach that node and the heuristic value of that node.
 import config
 from Node import *
+import numpy as np
+
+def chunks(l, n):
+    return [l[i:i+n] for i in range(0, len(l), n)]
 
 def print_recc(f, elem):
     if (elem.child):
         print_recc(f, elem.child)
-    grid=' '.join(['{: >2}'.format(x) for x in elem.grid])
-    print(grid)
-    f.write(grid)
+    print(np.matrix(chunks(elem.grid, elem.sqrt)))
+    print()
+    f.write(' '.join(['{: >2}'.format(x) for x in elem.grid]))
     f.write('\n')
 
 def print_for_visu(process):
@@ -29,10 +33,10 @@ def a_star_impl(grid, goal, heuristic_ptr):
         #calc fscore
         process = min(open_set, key=lambda x:x.h + x.g)
         if process.h is 0 or process.grid is goal:
-            print("Time Complexity: {}\n"
-                  "Number of moves: {}\n"
-                  "Ordered Sequence:".format(time_complexity, process.g))
+            print("Ordered Sequence:")
             print_for_visu(process)
+            print("Time Complexity: {}\n"
+                  "Number of moves: {}".format(time_complexity, process.g))
             return
 
         open_set.remove(process)
