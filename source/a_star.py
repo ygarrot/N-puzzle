@@ -10,11 +10,14 @@ def a_star_impl(grid, goal, heuristic_ptr):
     closed_set = []
     open_set.append(start)
 
+    f = open("test/visu.txt", "w")
     while open_set:
         #calc fscore
         process = min(open_set, key=lambda x:x.h + x.g)
+        f.write(' '.join([str(x) for x in process.grid]))
+        f.write('\n')
         if process.h is 0 or process.grid is goal:
-            print(process.grid)
+            f.close()
             exit("solved")
 
         open_set.remove(process)

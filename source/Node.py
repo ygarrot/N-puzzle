@@ -55,7 +55,6 @@ class Node(object):
             node.sqrt = int(sqrt(len(node.grid)))
             node.g = node.g + 1
             node.f = node.h + node.g
-            node.index = node.grid.index(0)
 
     def swap_left(self):
         return self.tile_swap_2_index(LEFT(self.index), self.is_valid_horizontal_move)
@@ -77,9 +76,13 @@ class Node(object):
         i = index - new_index
         if (new_index < 0 or new_index > self.size):
             return False
-        if (index is not 0 and ((index + 1) % self.sqrt) is 0 and i is -1):
+        if (index is 0 and i is -1):
+            return True
+        if (index is 1):
+            return True
+        if (((index + 1) % self.sqrt) is 0 and i is -1):
             return False
-        if (index is not 1 and ((index + 1) % self.sqrt) is 1 and i is +1):
+        if (((index + 1) % self.sqrt) is 1 and i is +1):
             return False
         return True
 
@@ -91,6 +94,6 @@ class Node(object):
         #swap
         lst[index], lst[new_index] = lst[new_index], lst[index]
         node = Node()
-        node.grid = self.grid
+        node.grid = lst
         node.index = new_index
         return node

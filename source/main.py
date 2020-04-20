@@ -6,13 +6,39 @@ from heuristics import *
 from solvable import *
 from a_star import a_star_impl
 
+def make_goal(s):
+	ts = s*s
+	puzzle = [-1 for i in range(ts)]
+	cur = 1
+	x = 0
+	ix = 1
+	y = 0
+	iy = 0
+	while True:
+		puzzle[x + y*s] = cur
+		if cur == 0:
+			break
+		cur += 1
+		if x + ix == s or x + ix < 0 or (ix != 0 and puzzle[x + ix + y*s] != -1):
+			iy = ix
+			ix = 0
+		elif y + iy == s or y + iy < 0 or (iy != 0 and puzzle[x + (y+iy)*s] != -1):
+			ix = -iy
+			iy = 0
+		x += ix
+		y += iy
+		if cur == s*s:
+			cur = 0
+
+	return puzzle
+
+
 def parse():
     dict = {}
     with open(sys.argv[1]) as f:
         content = f.read()
     without_hash = re.sub('#.*', '', content).strip()
     puzzles = without_hash.split()
-    print(without_hash)
     try:
         puzzle_size = int(puzzles[0])
     except:
@@ -25,16 +51,11 @@ def parse():
         line_length = len(line.split())
         if (line_length is not puzzle_size):
             exit("Parsing Error")
-    print(puzzles)
     return puzzles, puzzle_size
 
 def main():
     grid, size = parse()
-    #if not solvable(grid):
-    #    print("Error: This N-puzzle isn't solvable.")
-    #    return
-    goal = [i + 1 for i in range(size * size)]
-    goal[-1] = 0
+    goal = make_goal(size)
     #check if input puzzle go from 0 to N - 1
     for tile in goal:
         if tile not in grid:
