@@ -4,13 +4,15 @@
 import config
 from Node import *
 
+def print_recc(f, elem):
+    if (elem.child):
+        print_recc(f, elem.child)
+    f.write(' '.join([str(x) for x in elem.grid]))
+    f.write('\n')
+
 def print_for_visu(process):
     f = open("test/visu.txt", "w")
-    child = process.child
-    while child:
-        f.write(' '.join([str(x) for x in child.grid]))
-        f.write('\n')
-        child = child.child
+    print_recc(f, process)
     f.close()
 
 def a_star_impl(grid, goal, heuristic_ptr):
@@ -25,7 +27,7 @@ def a_star_impl(grid, goal, heuristic_ptr):
         process = min(open_set, key=lambda x:x.h + x.g)
         if process.h is 0 or process.grid is goal:
             print_for_visu(process)
-            exit("solved")
+            return
 
         open_set.remove(process)
         closed_set.append(process)
@@ -40,6 +42,7 @@ def a_star_impl(grid, goal, heuristic_ptr):
             new_g = process.g + 1
             if not in_open:
                 node.g = new_g
+                # node.set_parent()
                 open_set.append(node)
             else:
                 if (node.g > new_g):

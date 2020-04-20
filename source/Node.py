@@ -46,10 +46,10 @@ class Node(object):
         return  str(lst)
 
     def set_parent(self):
-        self.left  = self.swap_left()
-        self.right = self.swap_right()
-        self.up    = self.swap_up()
-        self.down  = self.swap_down()
+        self.left    = self.swap_left()
+        self.right   = self.swap_right()
+        self.up      = self.swap_up()
+        self.down    = self.swap_down()
         self.parents = [x for x in [self.right, self.left, self.up, self.down] if x is not None]
         for node in self.parents:
             node.h = heuristic_fn(node.grid)
