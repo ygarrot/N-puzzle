@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 #f score is the sum of the cost to reach that node and the heuristic value of that node.
+import config
 from Node import *
 
 def print_for_visu(process):
@@ -13,7 +14,7 @@ def print_for_visu(process):
     f.close()
 
 def a_star_impl(grid, goal, heuristic_ptr):
-    heuristic_ptr= manhattan_distance_heuristic
+    heuristic_ptr= config.heuristic_fn
     start = Node(h = heuristic_ptr(grid), empty_case_index = grid.index(0), grid = grid)
     open_set = []
     closed_set = []

@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 
+import config
 from heuristics import *
 from math import sqrt
 import numpy as np
 import copy
 
-heuristic_fn = manhattan_distance_heuristic
+heuristic_fn = config.heuristic_fn
 
 def LEFT(i):
     return i - 1
