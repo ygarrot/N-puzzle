@@ -4,7 +4,7 @@ import math
 import numpy as np
 
 time = 0.
-with open('../test/visu.txt') as f:
+with open('./test/visu.txt') as f:
 	content = f.read().splitlines()
 line = []
 for v in content:
@@ -32,7 +32,7 @@ def timer(value):
 def draw():
 	glClear(GL_COLOR_BUFFER_BIT)
 	glUniform1f(timeLocation, time)
-	if int(time) < len(line[0]) - 2:
+	if int(time) < len(line) - 0:
 		glUniform1iv(grid, n*n, np.array(line[int(time)]))
 	else:
 		quit()
