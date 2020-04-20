@@ -55,7 +55,7 @@ class Node(object):
             node.sqrt = int(sqrt(len(node.grid)))
             node.g = node.g + 1
             node.f = node.h + node.g
-            node.empty_case_index = node.grid.index(0)
+            node.index = node.grid.index(0)
 
     def swap_left(self):
         return self.tile_swap_2_index(LEFT(self.index), self.is_valid_horizontal_move)
@@ -92,5 +92,5 @@ class Node(object):
         lst[index], lst[new_index] = lst[new_index], lst[index]
         node = Node()
         node.grid = self.grid
-        node.empty_case_index = new_index
+        node.index = new_index
         return node
