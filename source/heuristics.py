@@ -29,30 +29,34 @@ def linear_conflict_manhattan_distance_heuristic(grid):
         if i != config.goal.index(v):
             curr_col = i % size
             curr_row = i // size
-            target_col = (v - 1) % size
-            target_row = (v - 1) // size
+            target_col = (config.goal.index(v)) % size
+            target_row = (config.goal.index(v)) // size
                         #move left
             if target_col - curr_col > 0:
                 while (curr_col < target_col):
-                    curr_col += 1
-                    if (grid[curr_row * size + curr_col] - 1) // size == target_row:
+                    i += 1
+                    curr_col = i % size
+                    if (grid[v] - 1) // size == target_row:
                         h += 1
                         #move right
             elif target_col - curr_col < 0:
                 while (curr_col > target_col):
-                    curr_col -= 1
-                    if (grid[curr_row * size + curr_col] - 1) // size == target_row:
+                    i -= 1
+                    curr_col = i % size
+                    if (grid[v] - 1) // size == target_row:
                         h += 1
                         #move up
             if target_row - curr_row > 0:
                 while (curr_row < target_row):
-                    curr_row += 1
-                    if (grid[curr_row * size + curr_col] - 1) % size == target_col:
+                    i += 3
+                    curr_row = i // size
+                    if (grid[i] - 1) % size == target_col:
                         h += 1
                         #move down
             elif target_row - curr_row < 0:
                 while (curr_row > target_row):
-                    curr_row -= 1
-                    if (grid[curr_row * size + curr_col] - 1) % size == target_col:
+                    i -= 3
+                    curr_row = i // size
+                    if (grid[i] - 1) % size == target_col:
                         h += 1
     return h
