@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 
+import config
 from heuristics import *
 from math import sqrt
 import numpy as np
 import copy
 
-heuristic_fn = manhattan_distance_heuristic
+heuristic_fn = config.heuristic_fn
 
 def LEFT(i):
     return i - 1
@@ -35,6 +36,7 @@ class Node(object):
         self.down = None
         self.size = len(grid)
         self.sqrt = int(sqrt(len(grid)))
+        self.child = None
         self.parents = []
         self.grid = grid
 
@@ -53,6 +55,7 @@ class Node(object):
             node.h = heuristic_fn(node.grid)
             node.size = len(node.grid)
             node.sqrt = int(sqrt(len(node.grid)))
+            node.child = self
             node.g = node.g + 1
             node.f = node.h + node.g
 

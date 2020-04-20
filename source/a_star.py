@@ -1,23 +1,30 @@
 #!/usr/bin/env python3
 
 #f score is the sum of the cost to reach that node and the heuristic value of that node.
+import config
 from Node import *
 
+def print_for_visu(process):
+    f = open("test/visu.txt", "w")
+    child = process.child
+    while child:
+        f.write(' '.join([str(x) for x in child.grid]))
+        f.write('\n')
+        child = child.child
+    f.close()
+
 def a_star_impl(grid, goal, heuristic_ptr):
-    heuristic_ptr= manhattan_distance_heuristic
+    heuristic_ptr= config.heuristic_fn
     start = Node(h = heuristic_ptr(grid), empty_case_index = grid.index(0), grid = grid)
     open_set = []
     closed_set = []
     open_set.append(start)
 
-    f = open("test/visu.txt", "w")
     while open_set:
         #calc fscore
         process = min(open_set, key=lambda x:x.h + x.g)
-        f.write(' '.join([str(x) for x in process.grid]))
-        f.write('\n')
         if process.h is 0 or process.grid is goal:
-            f.close()
+            print_for_visu(process)
             exit("solved")
 
         open_set.remove(process)

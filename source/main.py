@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+
+import config
 import re
 import fileinput
 import sys
@@ -55,12 +57,12 @@ def parse():
 
 def main():
     grid, size = parse()
-    goal = make_goal(size)
+    config.goal = make_goal(size)
     #check if input puzzle go from 0 to N - 1
-    for tile in goal:
+    for tile in config.goal:
         if tile not in grid:
             exit("Parsing Error")
-    a_star_impl(grid, goal, manhattan_distance_heuristic)
+    a_star_impl(grid, config.goal, manhattan_distance_heuristic)
 
 if __name__ == '__main__':
     main()
