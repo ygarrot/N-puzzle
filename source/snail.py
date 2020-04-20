@@ -50,7 +50,7 @@ def ordered_to_snail(grid):
 			index = size + 2 * (size - 1) + j
 			for k in range(i):
 				index += (4 * (size - 2 * (k + 1))) - 2
-		grid_ret[size * (size - (2 + i)) - size * j + i] = grid[index]
+			grid_ret[size * (size - (2 + i)) - size * j + i] = grid[index]
 	for i in range((size - 2) // 2):
 		for j in range(size - 2 - 2 * i):
 			index = size + 2 * (size - 1) + (size - 2) + j

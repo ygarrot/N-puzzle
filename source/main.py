@@ -6,6 +6,7 @@ import fileinput
 import sys
 from heuristics import *
 from solvable import *
+from snail import *
 from a_star import a_star_impl
 
 def make_goal(s):
@@ -57,6 +58,9 @@ def parse():
 
 def main():
     grid, size = parse()
+    if not solvable(snail_to_ordered(grid)):
+        print("Error : N-puzzle not solvable !")
+        quit()
     config.goal = make_goal(size)
     #check if input puzzle go from 0 to N - 1
     for tile in config.goal:
