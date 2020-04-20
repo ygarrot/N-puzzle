@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 #f score is the sum of the cost to reach that node and the heuristic value of that node.
-from priority_queue import *
+from Node import *
 
 def a_star_impl(grid, goal, heuristic_ptr):
     heuristic_ptr= manhattan_distance_heuristic
@@ -11,11 +11,8 @@ def a_star_impl(grid, goal, heuristic_ptr):
     open_set.append(start)
 
     while open_set:
-        # print()
-        # print()
-        # print(' '.join([str(x.h + x.g) for x in open_set]))
+        #calc fscore
         process = min(open_set, key=lambda x:x.h + x.g)
-        # print('choosen: {}'.format(process.h + process.h))
         if process.h is 0 or process.grid is goal:
             print(process.grid)
             exit("solved")
@@ -26,7 +23,6 @@ def a_star_impl(grid, goal, heuristic_ptr):
         for node in process.parents:
             # in_close = node.grid in [x.grid for x in closed_set]
             # in_open = node.grid in [x.grid for x in open_set]
-
             in_close = node in closed_set
             in_open = node in open_set
             if in_close:
