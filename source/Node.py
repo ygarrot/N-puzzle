@@ -6,8 +6,6 @@ from math import sqrt
 import numpy as np
 import copy
 
-heuristic_fn = config.heuristic_fn
-
 def LEFT(i):
     return i - 1
 
@@ -19,7 +17,6 @@ def UP(i, puzzle_size):
 
 def DOWN(i, puzzle_size):
     return i + puzzle_size
-
 
 def chunks(l, n):
     return [l[i:i+n] for i in range(0, len(l), n)]
@@ -51,13 +48,14 @@ class Node(object):
         self.up      = self.swap_up()
         self.down    = self.swap_down()
         self.parents = [x for x in [self.right, self.left, self.up, self.down] if x is not None]
+
         for node in self.parents:
-            node.h = heuristic_fn(node.grid)
-            node.size = len(node.grid)
-            node.sqrt = int(sqrt(len(node.grid)))
+            node.h     = config.heuristic_fn(node.grid)
+            node.size  = len(node.grid)
+            node.sqrt  = int(sqrt(len(node.grid)))
             node.child = self
-            node.g = node.g + 1
-            node.f = node.h + node.g
+            node.g     = self.g + 1
+            node.f     = config.calc_fScore(node.h, node.g)
 
     def swap_left(self):
         return self.tile_swap_2_index(LEFT(self.index), self.is_valid_horizontal_move)
@@ -94,7 +92,6 @@ class Node(object):
         if not valid_move_fn(new_index):
             return None
         lst = copy.deepcopy(self.grid)
-        #swap
         lst[index], lst[new_index] = lst[new_index], lst[index]
         node = Node()
         node.grid = lst

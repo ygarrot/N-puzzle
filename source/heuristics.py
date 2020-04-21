@@ -3,14 +3,14 @@
 import math
 import config
 
-def hamming_distance_heuristic(grid):
+def hamming_distance(grid):
     h = 0
     for i, v in enumerate(grid):
         if i != config.goal.index(v):
             h += 1
     return h
 
-def manhattan_distance_heuristic(grid):
+def manhattan_distance(grid):
     h = 0
     size = int(math.sqrt(len(grid)))
     for i, v in enumerate(grid):
@@ -22,8 +22,8 @@ def manhattan_distance_heuristic(grid):
             h += abs(target_col - curr_col) + abs(target_row - curr_row)
     return h
 
-def linear_conflict_manhattan_distance_heuristic(grid):
-    h = manhattan_distance_heuristic(grid)
+def linear_conflict_manhattan_distance(grid):
+    h = manhattan_distance(grid)
     size = int(math.sqrt(len(grid)))
     for i, v in enumerate(grid):
         if i != config.goal.index(v):

@@ -1,10 +1,8 @@
 #!/usr/bin/env python3
-
+import argparse
 import config
 import re
-import fileinput
-import sys
-from heuristics import *
+import heuristics
 from solvable import *
 from snail import *
 from a_star import a_star_impl
@@ -36,9 +34,9 @@ def make_goal(s):
 	return puzzle
 
 
-def parse():
+def parse_file(file_name):
     dict = {}
-    with open(sys.argv[1]) as f:
+    with open(file_name) as f:
         content = f.read()
     without_hash = re.sub('#.*', '', content).strip()
     puzzles = without_hash.split()
@@ -56,18 +54,32 @@ def parse():
             exit("Parsing Error")
     return puzzles, puzzle_size
 
+def parse_arg():
+    parser = argparse.ArgumentParser(description='Faster N-Puzzle you have ever seen')
+    parser.add_argument("-g", "--greedy", default=False, action="store_true",
+                                       help="Are You a Greedy Bastard?")
+    parser.add_argument("-a", "--algorithm", dest="heuristic",
+            default="linear_conflict_manhattan_distance",
+            choices=["hamming_distance", "manhattan_distance", "linear_conflict_manhattan_distance"],
+            help="choose algorithm function")
+    parser.add_argument("path", type=str, default="none", help="input file name")
+    args = parser.parse_args()
+    config.is_greedy = args.greedy
+    config.heuristic_fn = getattr(heuristics, args.heuristic)
+    return args.path
+
 def main():
-    grid, size = parse()
+    grid, size = parse_file(parse_arg())
     if not solvable(snail_to_ordered(grid)):
         print("Error : N-puzzle not solvable !")
-        quit()
+        return
     print("N-puzzle is solvable !")
     config.goal = make_goal(size)
     #check if input puzzle go from 0 to N - 1
     for tile in config.goal:
         if tile not in grid:
             exit("Parsing Error")
-    a_star_impl(grid, config.goal, manhattan_distance_heuristic)
+    a_star_impl(grid, config.goal, config.heuristic_fn)
 
 if __name__ == '__main__':
     main()
