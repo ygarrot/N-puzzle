@@ -9,7 +9,7 @@ def snail_to_ordered(grid):
 			for k in range(i):
 				index += (4 * (size - 2 * (k + 1))) + 2
 			grid_ret[index] = grid[size * (j + i + 2) - i - 1]
-	for i in range((size - 1) // 2):
+	for i in range((size - 1) // 2 + (1 - size % 2)):
 		for j in range(size - 1 - 2 * i):
 			index = size + (size - 1) + j
 			for k in range(i):
@@ -21,13 +21,12 @@ def snail_to_ordered(grid):
 			for k in range(i):
 				index += (4 * (size - 2 * (k + 1))) - 2
 			grid_ret[index] = grid[size * (size - (2 + i)) - size * j + i]
-	for i in range((size - 2) // 2):
+	for i in range((size - 2) // 2 + size % 2):
 		for j in range(size - 2 - 2 * i):
 			index = size + 2 * (size - 1) + (size - 2) + j
 			for k in range(i):
 				index += (4 * (size - 2 * (k + 1))) - 4
 			grid_ret[index] = grid[size * (i + 1) + (i + 1) + j]
-	grid_ret[len(grid_ret) - 1] = 0
 	return grid_ret
 
 def ordered_to_snail(grid):
