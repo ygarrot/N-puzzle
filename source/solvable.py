@@ -25,6 +25,6 @@ def solvable(grid):
 			return True
 	else:
 		if (odd(inversions) and odd(grid.index(0) // size + 1)) or (not odd(inversions) and not odd(grid.index(0) // size + 1)):
-		 return True
+			return True
 		else:
 			return False
