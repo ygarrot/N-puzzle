@@ -10,10 +10,6 @@ line = []
 for v in content:
 	line.append(v.split())
 
-print(line)
-
-
-
 def create_shader(shader_type, source):
 	shader = glCreateShader(shader_type)
 	glShaderSource(shader, source)
