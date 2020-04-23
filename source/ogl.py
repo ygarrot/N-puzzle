@@ -4,11 +4,23 @@ import math
 import numpy as np
 
 time = 0.
-with open('./test/visu.txt') as f:
-	content = f.read().splitlines()
+try:
+    with open('./test/visu.txt') as f:
+	    content = f.read().splitlines()
+except:
+    print("File error on visu")
+    quit()
 line = []
 for v in content:
 	line.append(v.split())
+
+try:
+    for i in range(len(line)):
+        for j in range(len(line[i])):
+            line[i][j] = int(line[i][j])
+except:
+    print("Petit malin...")
+    quit()
 
 def create_shader(shader_type, source):
 	shader = glCreateShader(shader_type)
