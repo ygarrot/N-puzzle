@@ -4,8 +4,17 @@ import config
 import re
 import heuristics
 from solvable import *
-from snail import *
+# from snail import *
 from a_star import a_star_impl
+
+def snail_to_ordered(snail, size):
+    ordered        = []
+    solved_grid = make_goal(size)
+
+    for i in range(len(snail)):
+       ordered.append(snail[solved_grid.index(i)])
+    return ordered
+
 
 def make_goal(s):
 	ts = s*s
@@ -70,7 +79,7 @@ def parse_arg():
 
 def main():
     grid, size = parse_file(parse_arg())
-    if not solvable(snail_to_ordered(grid)):
+    if not solvable(snail_to_ordered(grid, size)):
         print("Error : N-puzzle not solvable !")
         return
     config.goal = make_goal(size)
