@@ -44,7 +44,7 @@ def parse_file(file_name):
     try:
         puzzle_size = int(puzzles[0])
     except:
-        exit("Invalid size" + puzzles[0])
+        exit("Invalid size: " + puzzles[0])
 
     puzzles = [ int(puzzle) for puzzle in puzzles[1:]]
     without_hash = without_hash.splitlines()[1:]
@@ -73,13 +73,13 @@ def parse_arg():
 def main():
     grid, size = parse_file(parse_arg())
     config.goal = make_goal(size)
+    for tile in config.goal:
+        if tile not in grid:
+            exit("Parsing Error")
     if not solvable(snail_to_ordered_by_ygarrot(grid, config.goal, size)):
         exit("Error : N-puzzle not solvable !")
     print("N-puzzle is solvable !")
     #check if input puzzle go from 0 to N - 1
-    for tile in config.goal:
-        if tile not in grid:
-            exit("Parsing Error")
     a_star_impl(grid, config.goal, config.heuristic_fn)
 
 if __name__ == '__main__':
