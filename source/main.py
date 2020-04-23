@@ -82,6 +82,7 @@ def main():
     if not solvable(snail_to_ordered(grid, size)):
         print("Error : N-puzzle not solvable !")
         return
+    print("N-puzzle is solvable !")
     config.goal = make_goal(size)
     #check if input puzzle go from 0 to N - 1
     for tile in config.goal:
