@@ -27,22 +27,22 @@ def a_star_impl(grid, goal, heuristic_ptr):
     start = Node(h = heuristic_ptr(grid), empty_case_index = grid.index(0), grid = grid)
     open_set = PriorityQueue()
     closed_set = PriorityQueue()
-    open_set.insert(start)
+    open_set.put(start)
     time_complexity = 0
 
     while open_set:
-        process = open_set.pop()
+        process = open_set.get()
         if process.h is 0 or process.grid is goal:
             print("Ordered Sequence:")
             print_for_visu(process)
             print("Time Complexity: {}\n"
                   "Number of moves: {}".format(time_complexity, process.g))
             return
-        closed_set.insert(process)
+        closed_set.put(process)
         process.set_parent()
         for node in process.parents:
-            in_close = node.grid in [x.grid for x in closed_set.queue]
-            in_open = node.grid in [x.grid for x in open_set.queue]
+            in_close = node.grid in [x.grid for (p, x) in closed_set.elements]
+            in_open = node.grid in [x.grid for (p, x) in open_set.elements]
             # in_close = node in closed_set.queue
             # in_open = node in open_set.queue
             if in_close:
@@ -50,10 +50,10 @@ def a_star_impl(grid, goal, heuristic_ptr):
             new_g = process.g + 1
             if not in_open:
                 node.g = new_g
-                open_set.insert(node)
-                time_complexity += 1
+                open_set.put(node)
             else:
                 if (node.g > new_g):
                     node.g = new_g
+            time_complexity += 1
             node.f = config.calc_fScore(node.h, node.g)
     raise ValueError('No Path Found')

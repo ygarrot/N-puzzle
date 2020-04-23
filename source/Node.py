@@ -38,6 +38,12 @@ class Node(object):
         self.grid = grid
 
 
+    def __eq__(self, other):
+        return self.f == other.f
+
+    def __lt__(self, other):
+        return self.f < other.f
+
     def __str__(self):
         lst = np.matrix(chunks(self.grid, int(sqrt(len(self.grid)))))
         return  str(lst)

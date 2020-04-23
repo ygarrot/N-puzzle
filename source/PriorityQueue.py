@@ -1,23 +1,14 @@
-#maybe set in in constructor later
-class PriorityQueue(object):
+import heapq
+
+class PriorityQueue:
     def __init__(self):
-        self.queue = []
+        self.elements = []
 
-    def __str__(self):
-        return ' '.join([str(i) for i in self.queue])
+    def empty(self):
+        return len(self.elements) == 0
 
-    def insert(self, node):
-        if len(self.queue) is 0:
-            self.queue.append(node)
-            return
-        for i, elem in enumerate(self.queue):
-            if elem.f > node.f:
-                self.queue.insert(i, node)
-                return
-        self.queue.append(node)
+    def put(self, item):
+        heapq.heappush(self.elements, (item.f, item))
 
-    def pop(self):
-        # elem = min(self.queue, key=lambda x:x.f)
-        elem = self.queue[0]
-        self.queue.remove(elem)
-        return elem
+    def get(self):
+        return heapq.heappop(self.elements)[1]

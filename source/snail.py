@@ -17,14 +17,6 @@ def snail_to_ordered_by_ygarrot(snail, goal, size):
 
     for i in range(len(ordered)):
         toto.insert(i, snail[goal.index(ordered[i])])
-    print("goal")
-    print(chunks(goal))
-    print("ordered")
-    print(chunks(ordered))
-    print("snail")
-    print(chunks(snail))
-    print("result")
-    print(chunks(toto))
     return toto
 
 
