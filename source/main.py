@@ -72,9 +72,9 @@ def parse_arg():
 def main():
     grid, size = parse_file(parse_arg())
     config.goal = make_goal(size)
-    # if not solvable(snail_to_ordered_by_ygarrot(grid, config.goal, size)):
-    #     print("Error : N-puzzle not solvable !")
-    #     return
+    if not solvable(grid):
+        print("Error : N-puzzle not solvable !")
+        return
     print("N-puzzle is solvable !")
     #check if input puzzle go from 0 to N - 1
     for tile in config.goal:
