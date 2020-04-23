@@ -29,14 +29,17 @@ def a_star_impl(grid, goal, heuristic_ptr):
     closed_set = PriorityQueue()
     open_set.put(start)
     time_complexity = 0
+    size_complexity = 1
 
     while open_set:
         process = open_set.get()
         if process.h is 0 or process.grid is goal:
             print("Ordered Sequence:")
             print_for_visu(process)
-            print("Time Complexity: {}\n"
-                  "Number of moves: {}".format(time_complexity, process.g))
+            print("Number of moves: {}\n"
+                  "Time Complexity: {}\n"
+                  "Size Complexity: {}"
+                  .format(process.g, time_complexity, size_complexity))
             return
         closed_set.put(process)
         process.set_parent()
@@ -51,6 +54,7 @@ def a_star_impl(grid, goal, heuristic_ptr):
             if not in_open:
                 node.g = new_g
                 open_set.put(node)
+                size_complexity += 1
             else:
                 if (node.g > new_g):
                     node.g = new_g
