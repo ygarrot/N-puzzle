@@ -4,16 +4,8 @@ import config
 import re
 import heuristics
 from solvable import *
-# from snail import *
+from snail import *
 from a_star import a_star_impl
-
-def snail_to_ordered(snail, size):
-    ordered        = []
-    solved_grid = make_goal(size)
-
-    for i in range(len(snail)):
-       ordered.append(snail[solved_grid.index(i)])
-    return ordered
 
 
 def make_goal(s):
@@ -79,11 +71,12 @@ def parse_arg():
 
 def main():
     grid, size = parse_file(parse_arg())
-    if not solvable(snail_to_ordered(grid, size)):
+    config.goal = make_goal(size)
+    if not solvable(snail_to_ordered_by_ygarrot(grid, config.goal, size)):
         print("Error : N-puzzle not solvable !")
         return
     print("N-puzzle is solvable !")
-    config.goal = make_goal(size)
+    return
     #check if input puzzle go from 0 to N - 1
     for tile in config.goal:
         if tile not in grid:
@@ -92,4 +85,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
