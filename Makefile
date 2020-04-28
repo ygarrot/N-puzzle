@@ -11,7 +11,8 @@ run:
 	@./source/main.py test/test.txt
 
 visu:
-	@./res_npuzzle-gen.py -u -i 50 3 > test/test.txt
+	@./res_npuzzle-gen.py -s -i 50000 3 > test/test.txt
 	@head -1 test/test.txt
 	@./source/main.py test/test.txt
-	@python source/ogl.py
+	@g++ source/main.cpp source/ogldev_util.cpp -lglut -lOpenGL -lGLEW
+	@./a.out
