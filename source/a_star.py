@@ -46,11 +46,11 @@ def a_star_impl(grid, goal, heuristic_ptr):
         for node in process.parents:
             in_close = node.grid in [x.grid for (p, x) in closed_set.elements]
             in_open = node.grid in [x.grid for (p, x) in open_set.elements]
-            # in_close = node in closed_set.queue
-            # in_open = node in open_set.queue
+
             if in_close:
                 continue
             new_g = process.g + 1
+
             if not in_open:
                 node.g = new_g
                 open_set.put(node)
@@ -58,6 +58,7 @@ def a_star_impl(grid, goal, heuristic_ptr):
             else:
                 if (node.g > new_g):
                     node.g = new_g
-            time_complexity += 1
+
             node.f = config.calc_fScore(node.h, node.g)
+        time_complexity += 1
     raise ValueError('No Path Found')
