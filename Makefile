@@ -14,5 +14,5 @@ visu:
 	@./res_npuzzle-gen.py -s -i 50000 3 > test/test.txt
 	@head -1 test/test.txt
 	@./source/main.py test/test.txt
-	@g++ source/main.cpp source/ogldev_util.cpp -lglut -lOpenGL -lGLEW
+	@g++ visu/main.cpp visu/ogldev_util.cpp -lglut -lOpenGL -lGLEW
 	@./a.out
