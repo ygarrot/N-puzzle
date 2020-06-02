@@ -12,8 +12,8 @@ GLuint gridLocation;
 GLuint nLocation;
 GLuint timeLocation;
 
-const char* pVSFileName = "source/shader.vs";
-const char*	pFSFileName = "source/shader.fs";
+const char* pVSFileName = "visu/shader.vs";
+const char*	pFSFileName = "visu/shader.fs";
 const char*	pGridFileName = "./test/visu.txt";
 
 static void RenderSceneCB()

@@ -1,4 +1,4 @@
-all: visu
+all: visu_rule
 
 greedy:
 	@./res_npuzzle-gen.py -s -i 36 5 > test/test.txt
@@ -10,7 +10,7 @@ run:
 	@head -1 test/test.txt
 	@./source/main.py test/test.txt
 
-visu:
+visu_rule:
 	@./res_npuzzle-gen.py -s -i 50000 3 > test/test.txt
 	@head -1 test/test.txt
 	@./source/main.py test/test.txt
